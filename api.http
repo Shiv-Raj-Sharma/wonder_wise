@@ -1,0 +1,17 @@
+@baseUrl = http://localhost:3000
+
+### create baggage data
+POST {{baseUrl}}/baggages
+// yo baggages chai handlers ko index ko line no .6 bala aako xa
+Content-Type: application/json  
+// application/json means data goes in json formatff 
+
+{
+    "name":"HARI"
+}
+
+### Get All baggages
+GET {{baseUrl}}/baggages
+
+### Get a specific baggage
+GET {{baseUrl}}/baggages/6a09b4d24df9df8bc619ccb4
