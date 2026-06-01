@@ -12,6 +12,11 @@ import { Schema, model } from "mongoose";
                 type: Boolean,
                 default:false,
             },
+            user: {
+                type: Schema.Types.ObjectId,
+                ref:"User",
+                required: true,
+            }
         },   
             {
                 timestamps: true, ///records date and time and time zone

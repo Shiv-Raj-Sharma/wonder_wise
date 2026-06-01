@@ -7,6 +7,11 @@ export const createOrUdateBaggageValidator = [
   .withMessage("Name should not be empty")
   .trim()
   .escape(),
+body("completed")
+.optional()
+.isBoolean()
+.withMessage("COMLETED SHOULD BE EITHER TRUE OR FALSE"),
+
 validate,
   
 ];
