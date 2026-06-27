@@ -2,7 +2,7 @@ import { Router } from "express";
 import { create, destroy, getAll, getOne, update } from "../services/baggage.js";
 import { createOrUdateBaggageValidator } from "../validators/baggage.js";
 
-const BAGGAGE_ROUTER = Router();
+const BAGGAGE_ROUTER = Router({ mergeParams: true });
 
 // request methods are get = data read ,post = data write , delete, patch = specific data is modified ,   put = entire is data modified
 BAGGAGE_ROUTER.post("/", createOrUdateBaggageValidator, async (req, res, next) => {  // BAGGAGE_ROUTER.post("/",) 

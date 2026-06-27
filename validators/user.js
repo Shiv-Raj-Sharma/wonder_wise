@@ -61,3 +61,21 @@ export const updateUserValidator = [
         .trim(),
     validate
 ];
+
+export const loginValidator = [
+    body("email")
+     .notEmpty()
+     .withMessage("Email is required")
+     .isEmail()
+     .withMessage("Invalid email")
+     .normalizeEmail()
+     .trim(),
+    body("password")
+     .notEmpty()
+     .withMessage("Password is required")
+     .isLength({ min:8})
+     .withMessage("Password must be atleast 8 charaacters long")
+     .trim(),
+
+    validate
+];

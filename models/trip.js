@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const ExpenseShema = new Schema({
+const ExpenseSchema = new Schema({
     name:{
         type: String,
         required: true,
@@ -16,7 +16,7 @@ const ExpenseShema = new Schema({
 });
 
 const BudgetSchema = new Schema({
-      total: {
+    total: {
     type: Number,
     required: true,
   },
@@ -40,6 +40,7 @@ const TripSchema = new Schema({
   },
   description: {
     type: String,
+    required: true,
   },
   startDate: {
     type: Date,

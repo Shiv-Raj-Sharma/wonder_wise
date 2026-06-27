@@ -1,10 +1,14 @@
 @baseUrl = http://localhost:3000
 
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODI1MzY3NzEsImV4cCI6MTc4MjYyMzE3MX0.JsgbeRWUL-abOO3bvlQiLLQ5-1O8mg8OTV9M9nvzeao
+
+
 ### create baggage data
 POST {{baseUrl}}/baggages
 // yo baggages chai handlers ko index ko line no .6 bala aako xa
 Content-Type: application/json  
 // application/json means data goes in json formatff 
+Authorization: Bearer {{token}}
 
 {
     "name":"HARI"
@@ -12,14 +16,19 @@ Content-Type: application/json
 
 ### Get All baggages
 GET {{baseUrl}}/baggages
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get a specific baggage
 GET {{baseUrl}}/baggages/6a09b4d24df9df8bc619ccb1
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 
 ### Update s specific baggage
 PATCH {{baseUrl}}/baggages/
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "name": "shockd",
@@ -28,6 +37,8 @@ Content-Type: application/json
 
 ### delete a specific baggage
 DELETE {{baseUrl}}/baggages/6a0ac37edbc05753380801c3
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 
 
@@ -35,6 +46,7 @@ DELETE {{baseUrl}}/baggages/6a0ac37edbc05753380801c3
 ### create users 
 POST {{baseUrl}}/users
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "name": "deleteuser",
@@ -44,16 +56,21 @@ Content-Type: application/json
 
 ### getall users
 GET {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 
 
 ### get a user
 GET {{baseUrl}}/users/6a16780c627e312d1264237c
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 
 ### update a user by id
 PATCH {{baseUrl}}/users/6a16780c627e312d1264237c
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
     "email": "gita3@gmail.com"
@@ -61,6 +78,78 @@ Content-Type: application/json
 
 ### delete a user
 DELETE {{baseUrl}}/users/6a16da93b9c120630d95a969
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+
+### create a trip
+POST {{baseUrl}}/trips
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title":"TRIP TO THE HELL",
+    "description":"summmer holiday",
+    "startDate":"2026-12-15",
+    "endDate":"2027-01-15",
+     "destinations": ["mustang","dang","muktinath"],
+    "budget":{
+        "total": 1000
+    }
+}
+
+### get all trips
+GET {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### get a specific trip
+GET {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### update a specific trip
+PATCH {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "expenses": [
+        {
+            "name": "taxi",
+            "amount": "600",
+        }
+    ]
+}
+
+### delete a specific trip
+DELETE {{baseUrl}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+### register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+
+{
+    "name": "sima says",
+    "email": "sima12345825@gamil.com",
+    "password": "sila563@3"
+}
+
+
+### login for user
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+
+{
+    "email": "sila12345825@gamil.com",
+    "password": "sila563@3"
+}
+
+
 
 
 

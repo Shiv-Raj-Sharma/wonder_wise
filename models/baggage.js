@@ -16,6 +16,11 @@ import { Schema, model } from "mongoose";
                 type: Schema.Types.ObjectId,
                 ref:"User",
                 required: true,
+            },
+            trip: {
+                type: Schema.Types.ObjectId,
+                ref: "Trip",
+                required: true,
             }
         },   
             {

@@ -1,18 +1,20 @@
 import { NotFoundError } from "../errors/not-found.js";
 import Baggage from "../models/baggage.js";
+import { getOne as getTrip } from "./trip.js";
 
-export const create = async (data) => { 
-    const baggage = await Baggage.create(data) // data =>{(name: " jacket")}
+export const create = async (data, userId, tripid ) => { 
+    await getTrip(tripId, userId);
+    const baggage = await Baggage.create({...data, user: userId, trip: tripId}); // data =>{(name: " jacket")}
     return baggage;
 }
 
-export const getAll = async () => {
+export const getAll = async (userId, tripId) => {
   const baggages =   await Baggage.find();
   return baggages;
 }
 
-export const getOne = async (_id) => {
-    const baggage = await Baggage.findById(_id);
+export const getOne = async (_id, userId, tripId ) => {
+    const baggage = await Baggage.findOne({_id, user:userId, });
     if (!baggage) {
         throw new NotFoundError("Baggage not found");
     }

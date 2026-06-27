@@ -20,7 +20,7 @@ export const getOneUser = async (_id) => {
 }
 
 export const getUserByEmail = async (email) => {
-    const uer = await User.findOne({ email });
+    const user = await User.findOne({ email });
     if(!user) throw new NotFoundError("user not found");
     return user;
 }
