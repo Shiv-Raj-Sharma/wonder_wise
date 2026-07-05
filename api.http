@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:3000
 
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODI1MzY3NzEsImV4cCI6MTc4MjYyMzE3MX0.JsgbeRWUL-abOO3bvlQiLLQ5-1O8mg8OTV9M9nvzeao
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODI2OTU4MDEsImV4cCI6MTc4Mjc4MjIwMX0.b3gbRu9Apt1mTavfH_RtXfE0evgSvW77lpBEUzKdyKE
 
 
 ### create baggage data
@@ -51,7 +51,8 @@ Authorization: Bearer {{token}}
 {
     "name": "deleteuser",
     "email": "delete1@email.com",
-    "password":"abcdefgherdelete"
+    "password":"abcdefgherdelete",
+    "confirmPassword":""
 }
 
 ### getall users

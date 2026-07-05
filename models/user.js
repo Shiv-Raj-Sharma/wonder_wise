@@ -1,5 +1,6 @@
 import { Schema, model} from "mongoose";
 import { hash } from "bcrypt";
+import { ValidationError } from "../errors/validations.js";
 
 
 const UserSchema = new Schema(
@@ -26,16 +27,28 @@ const UserSchema = new Schema(
             type: String,
             required: true,
         },
+        confirmPassword:{
+            type: String,
+            required: true,
+            select: false
+        }
     },
     {
         timestamps: true,
     }
 );
 
+UserSchema.pre("validate", function () {
+  if (this.password !== this.confirmPassword) {
+    throw new ValidationError("Password and confirm password did not match");
+  }
+});
+
 UserSchema.pre("save", async function () {
     if (this.isModified("password")) {
         this.password = await hash(this.password, 8);
     }
+    this.confirmPassword = undefined;
 });
 // Ensure password is hashed on update operations as well
 UserSchema.pre("findOneAndUpdate", async function () {
