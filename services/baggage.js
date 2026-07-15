@@ -9,26 +9,26 @@ export const create = async (data, userId, tripid ) => {
 }
 
 export const getAll = async (userId, tripId) => {
-  const baggages =   await Baggage.find();
+  const baggages =   await Baggage.find({user: userId, trip: tripId});
   return baggages;
 }
 
 export const getOne = async (_id, userId, tripId ) => {
-    const baggage = await Baggage.findOne({_id, user:userId, });
+    const baggage = await Baggage.findOne({_id, user:userId, trip:tripId });
     if (!baggage) {
         throw new NotFoundError("Baggage not found");
     }
     return baggage;
 }
 
-export const update = async (_id, data) => {
-    const baggage = await Baggage.findByIdAndUpdate(_id, data, {returnDocument:"after"});
+export const update = async (_id, data, userId, tripId) => {
+    const baggage = await Baggage.findByIdAndUpdate({_id, data, userId, tripId}, data,{returnDocument:"after"});
     if(!baggage) throw new NotFoundError("Baggage not found");
     return baggage;
 }
 
-export const destroy = async (_id) => {
-    const baggage = await Baggage.findByIdAndDelete(_id);
+export const destroy = async ({_id, userId, tripId }) => {
+    const baggage = await Baggage.findByIdAndDelete({_id, user:userId, trip:tripId});
     if(!baggage) throw new NotFoundError("Baggage not found");
     return baggage;
 };

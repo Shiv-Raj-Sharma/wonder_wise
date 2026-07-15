@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { acceptInvite, create, destroy, getAll, getOne, update } from "../services/trip.js";
+import { acceptInvite, addExpense, create, destroy, getAll, getOne, inviteCollaborator, update } from "../services/trip.js";
 import { createTripValidator, updateTripValidator } from "../validators/trip.js";
 
 const TRIP_ROUTER = Router();
 
 TRIP_ROUTER.post("/", createTripValidator, async(req, res, next)=>{
     try{
-        const trip = await create(req.body, req.user, req.params.tripId);
+        const trip = await create(req.body, req.user);
         res.status(201).json({data:trip});
     } catch (error){
         next(error);
@@ -18,7 +18,7 @@ TRIP_ROUTER.get(
     "/", 
  async(req, res, next) =>{
     try {
-         const trip = await getAll(req.user, req.params, req.params.yt);
+         const trip = await getAll(req.user);
          res.status(200).json({data:trip});
     } catch (error) {
         next(error)
@@ -28,10 +28,10 @@ TRIP_ROUTER.get(
 
 
 TRIP_ROUTER.get(
-    "/", 
+    "/:id", 
  async(req, res, next) =>{
     try {
-         const trip = await getOne(req.req.params.id, req.user);
+         const trip = await getOne(req.params.id, req.user);
          res.status(200).json({data:trip});
     } catch (error) {
         next(error);
@@ -59,11 +59,12 @@ TRIP_ROUTER.delete("/:id", async (req, res, next) => {
 
 TRIP_ROUTER.post("/:id/invite", async (req, res, next) => {
     try {
-        const result = await invitCollaborator(
+        const result = await inviteCollaborator(
             req.params.id,
             req.user,
-            req.body.invitCollaboratorEmail
+            req.body.collaboratorEmails
         );
+        res.status(200).json(result)
     } catch (error) {
         next(error);
     }
@@ -78,6 +79,17 @@ TRIP_ROUTER.get(
         } catch (error) {
             next(error)
         }
+    }
+)
+
+TRIP_ROUTER.patch(
+    "/:id/expenses", async (res, req, next) => {
+        try {
+           const result = await addExpense(req.params.id, req.body, req.user);
+           res.status(200).json({data: result}) 
+        } catch (error) {
+            next (error)
+        }        
     }
 )
 

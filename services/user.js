@@ -7,14 +7,14 @@ export const create = async (data) => {
     return userWithoutPassword;
 }
 
-export const getAllUsers = async (data) => {
-    const users = await User.find(data)
+export const getAllUsers = async () => {
+    const users = await User.find({}, {password: 0 })
     return users;
 }
 
 
 export const getOneUser = async (_id) => {
-    const user = await User.findById(_id);
+    const user = await User.findById(_id, { passwaord: 0 });
     if(!user) throw new NotFoundError("user not found");
     return user;
 }
@@ -26,13 +26,23 @@ export const getUserByEmail = async (email) => {
 }
 
 export const update = async (_id, data) => {
-    const user = await User.findByIdAndUpdate(_id, data, {returnDocument: 'after'});
+    const user = await User.findByIdAndUpdate(
+        _id,
+        data,
+        {
+            returnDocument: 'after'
+        }
+    );
     if(!user) throw new NotFoundError("User not found");
     return user;
 }
 
 export const destroy = async (_id) => {
-    const user = await User.findByIdAndDelete(_id);
+    const user = await User.findByIdAndDelete(_id,
+        {
+            projection: {password: 0 }
+        }
+    );
     if(!user) throw new NotFoundError("User notfound");
     return user;
 }

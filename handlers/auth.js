@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createUserValidator, loginValidator } from "../validators/user.js";
 import { login, register } from "../services/auth.js";
+
 const AUTH_ROUTER = Router();
 
 AUTH_ROUTER.post("/register", createUserValidator, async (req, res, next) => {

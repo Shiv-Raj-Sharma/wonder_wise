@@ -36,3 +36,7 @@ const itinerarySchema = new Schema({
     }
 );
 
+const Itinerary = model ("Itinerary", itinerarySchema);
+
+export default Itinerary;
+

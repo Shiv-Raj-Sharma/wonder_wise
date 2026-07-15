@@ -1,6 +1,13 @@
 @baseUrl = http://localhost:3000
 
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODI2OTU4MDEsImV4cCI6MTc4Mjc4MjIwMX0.b3gbRu9Apt1mTavfH_RtXfE0evgSvW77lpBEUzKdyKE
+@tripId=6a5350fe7f1d52efdc37767a
+
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODQwMTU4MTAsImV4cCI6MTc4NDEwMjIxMH0.z8mCj0LN_lYcBTeTV4P46FrTWheFmwMLQPojJMEKSfw
+
+@invitationToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTNlNTMxNDM0YzRhMzM5NmQwN2UzN2EiLCJpYXQiOjE3ODQwMTU4MTAsImV4cCI6MTc4NDEwMjIxMH0.z8mCj0LN_lYcBTeTV4P46FrTWheFmwMLQPojJMEKSfw
+
+
+
 
 
 ### create baggage data
@@ -149,6 +156,22 @@ Content-Type: application/json
     "email": "sila12345825@gamil.com",
     "password": "sila563@3"
 }
+
+### send trip invitation 
+POST {{baseUrl}}/trips/{{tripId}}/invite
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "collaboratorEmails": [
+        "dass2005nd@gmail.com"
+    ]
+}
+
+### Accept invite
+GET {{baseUrl}}/tripId/invite/accept?token={{invitationToken}}
+Authorization: Bearer {{token}}
+
 
 
 
