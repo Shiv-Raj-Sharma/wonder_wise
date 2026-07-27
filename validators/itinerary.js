@@ -22,7 +22,7 @@ export const createItineraryValidator = [
        .trim()
        .notEmpty()
        .withMessage("Date is required")
-       .isDate()
+       .toDate()
        .withMessage("Date must be a date"),
     
     body("activities")

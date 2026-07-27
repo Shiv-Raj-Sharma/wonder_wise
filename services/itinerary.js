@@ -1,17 +1,18 @@
 import Itinerary from "../models/itinerary.js";
 import { ValidationError } from "../errors/validations.js";
+import { getOne as getTrip} from "./trip.js"
 
 export const createItinerary = async (data, tripId, userId) => {
     const trip = await getTrip(tripId, userId);
     
     if (
-        new Date(date.date) > new Date(trip.starDate) ||
-        new Date(date.date) > new Date(endDate)
+        new Date(data.date) < new Date(trip.starDate) ||
+        new Date(data.date) > new Date(trip.endDate)
     ) {
         throw new ValidationError("Itinerary date  must be within the trip dates ");
     }
 
-    const itinerary = await Itinerary.create(data);
+    const itinerary = await Itinerary.create({...data, trip:tripId});
     return itinerary;
 };
 
@@ -22,6 +23,9 @@ export const getAll = async (tripId, userId) => {
 };
 
 export const getOne = async (id, userId, tripId) => {
+    console.log("iId",id);
+    console.log("uId",userId);
+    console.log("tripId",tripId);
     await getTrip(tripId, userId);
     const itinerary = await Itinerary.findById(id);
     if(!itinerary){

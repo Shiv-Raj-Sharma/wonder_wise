@@ -27,6 +27,18 @@ const BudgetSchema = new Schema({
   expenses: [ExpenseSchema],
 });
 
+const FileSchema = new Schema({
+  url:{
+    type: String,
+    required: true,
+  },
+  publicId:{
+    type: String,
+    required: true,
+  }
+
+})
+
 const TripSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -64,6 +76,8 @@ const TripSchema = new Schema({
       ref: "User",
     },
   ],
+  files: [FileSchema],
+
 });
 
 TripSchema.pre("findOneAndUpdate", function () {

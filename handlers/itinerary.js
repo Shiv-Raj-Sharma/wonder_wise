@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createItineraryValidator, updateItineraryValidator } from "../validators/itinerary.js";
-import { destroy, getAll, getOne, update } from "../services/itinerary.js";
+import { createItinerary, destroy, getAll, getOne, update } from "../services/itinerary.js";
 
 
 const ITINERARY_ROUTER = Router({mergeParams: true });
@@ -22,9 +22,9 @@ ITINERARY_ROUTER.get("/", async (req,res,next) => {
     try {
         const itineraries = await getAll(
             req.params.tripId,
-            req.user.userId,
+            req.user,
         );
-        res.status(200).json(itineraries);
+        res.status(200).json({data: itineraries});
     } catch (error) {
         next(error);
     }
@@ -37,7 +37,7 @@ ITINERARY_ROUTER.get("/:tripId/:id", async (req, res, next) => {
             req.user,
             req.params.tripId,
         );
-        res.status(200).json(itinerary)
+        res.status(200).json({data:itinerary})
     } catch (error) {
         next(error)
     }

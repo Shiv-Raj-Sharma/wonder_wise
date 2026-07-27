@@ -172,7 +172,15 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}/tripId/invite/accept?token={{invitationToken}}
 Authorization: Bearer {{token}}
 
+### create itinerary
+POST {{baseUrl}}/{{tripId}}/itineraries
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
+{
+    "trip": "{{tripId}}"
+    
+}
 
 
 

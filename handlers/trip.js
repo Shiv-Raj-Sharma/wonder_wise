@@ -1,8 +1,23 @@
 import { Router } from "express";
-import { acceptInvite, addExpense, create, destroy, getAll, getOne, inviteCollaborator, update } from "../services/trip.js";
+import { acceptInvite,
+    addExpense,
+    create,
+    destroy,
+    getAll,
+    getOne,
+    inviteCollaborator,
+    update, 
+    uploadFiles} 
+    from "../services/trip.js";
 import { createTripValidator, updateTripValidator } from "../validators/trip.js";
+import multer from "multer";
+
+
 
 const TRIP_ROUTER = Router();
+
+const upload = multer({dest: "uploads/"});  // multer helps to upload files in our folder
+// upload = multer({}) multer's obj
 
 TRIP_ROUTER.post("/", createTripValidator, async(req, res, next)=>{
     try{
@@ -93,4 +108,17 @@ TRIP_ROUTER.patch(
     }
 )
 
+
+TRIP_ROUTER.post(
+    "/:id/upload",
+    upload.array("files"),
+    async (req, res, next) => {
+        try {
+            const result = await uploadFiles(req.params.id, req.user, req.files);
+            res.status(201).json({ data: result });
+        } catch (error) {
+            next(error);
+        }
+    }
+)
 export default TRIP_ROUTER;

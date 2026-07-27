@@ -16,6 +16,9 @@ export const getAll = async (userId) => {
 };
 
 export const getOne = async (id, userId) => {
+   console.log("iId",id);
+    console.log("uId",userId);
+   // console.log("tripId",tripId);
    const trip = await Trip.findOne({
       _id: id,
       $and: [
@@ -103,3 +106,20 @@ export const addExpense = async (tripId, expenseData, userId) => {
 
    return {message: "expense added sucessfully", trip}
 }
+
+export const uploadFiles = async (tripId, userId, files) => {
+   const trip = await getOne(tripId, userId);
+
+   await Promise.all(
+      files.map(async (files) => {
+         const result = await uploadFiles(files.path, `trips/${trip.title}_${tripId}`);
+         trip.files.push({
+            url: result.secure_url,
+            publicId: result.public_Id,
+         });
+      })
+   );
+
+   await trip.save();
+   return trip;
+};
