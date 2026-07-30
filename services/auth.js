@@ -1,7 +1,7 @@
 import { compare } from "bcrypt";
 import { generateAccessToken } from "../config/jwt.js";
 import { create, getUserByEmail } from "./user.js";
-import { Unauthorized } from "../errors/unauthorized.js";
+import { UnauthorizedError } from "../errors/unauthorized.js";
 
 export const register = async (data) => {
     const user = await create(data);
