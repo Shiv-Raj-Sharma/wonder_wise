@@ -14,7 +14,7 @@ connectDB(); // function called only once and loaded and execuuted
 app.use(express.json()); //.use() inside everthing is middleware // express.json tells server to be ready data is comming in json and give res in json
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     method: ["GET","POST","PATCH","DELETE","OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
