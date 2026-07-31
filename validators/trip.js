@@ -39,15 +39,29 @@ export const createTripValidator =[
         .notEmpty()
         .withMessage("Total budget is required")
         .isFloat("Total budget must be a positive number"),
+
     body("budget.expenses")
         .optional()
         .isArray()
         .withMessage("Expenses must be an array"),
+
+         body("budget.expenses.*")
+    .optional()
+    .custom((value) => typeof value === "object" && value !== null)
+    .withMessage("Each expense must be an object"),
+
     body("budget.expenses.*.name")
         .optional()
         .trim()
         .notEmpty()
         .withMessage("Expense name is required"),
+         body("budget.expenses.*.date")
+    .optional()
+    .isISO8601()
+    .withMessage("Expense date must be a date")
+    .toDate(),
+
+
     body("budget.expenses.*.amount")
         .optional()
         .trim()
@@ -80,6 +94,7 @@ export const updateTripValidator =[
             return true;
         }),
     body("destinations")
+        .trim()
         .notEmpty()
         .withMessage("Destination is required")
         .isArray()
@@ -97,11 +112,20 @@ export const updateTripValidator =[
         .optional()
         .isArray()
         .withMessage("Expenses must be an array"),
+        body("budget.expenses.*")
+         .optional()
+         .custom((value)=> typeof value === "object" && value !== null)
+         .withMessage("Each expense mut be an object"),
     body("budget.expenses.*.name")
         .optional()
         .trim()
         .notEmpty()
         .withMessage("Expense name is required"),
+          body("budget.expenses.*.date")
+    .optional()
+    .isISO8601()
+    .withMessage("Expense date must be a date")
+    .toDate(),
     body("budget.expenses.*.amount")
         .optional()
         .trim()
